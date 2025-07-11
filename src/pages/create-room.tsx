@@ -1,18 +1,19 @@
 import { useQuery } from "@tanstack/react-query";
+import { LucideHouse } from "lucide-react";
 import { Link } from "react-router-dom";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardAction,
-  CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
 
 type Room = {
   id: string;
-  title: string;
+  name: string;
+  description: string;
 };
 
 type GetRoomsResponse = Room[];
@@ -38,18 +39,20 @@ export function CreateRoom() {
         {data?.map((room: Room) => (
           <Card className="mb-4 flex flex-col" key={room.id}>
             <CardHeader>
-              <CardTitle>{room.title}</CardTitle>
-              <CardDescription>ID: {room.id}</CardDescription>
+              <CardTitle>{room.name}</CardTitle>
+              <CardDescription>{room.description}</CardDescription>
               <CardAction>
-                <Link to={`/room/${room.id}`}>Go to Room</Link>
+                <Link to={`/room/${room.id}`}>
+                  <Button
+                    className="cursor-pointer"
+                    size="icon"
+                    variant="outline"
+                  >
+                    <LucideHouse className="h-4 w-4" />
+                  </Button>
+                </Link>
               </CardAction>
             </CardHeader>
-            <CardContent>
-              <p>Card Content</p>
-            </CardContent>
-            <CardFooter>
-              <p>Card Footer</p>
-            </CardFooter>
           </Card>
         ))}
       </div>
