@@ -1,6 +1,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod/v4";
+import { useCreateRoom } from "@/http/use-create-room";
 import { Button } from "./ui/button";
 import {
   Card,
@@ -26,13 +27,19 @@ const createRoomSchema = z.object({
 });
 
 export function CreateRoomForm() {
+  const { mutateAsync: createRoom } = useCreateRoom();
+
   const createRoomForm = useForm({
     resolver: zodResolver(createRoomSchema),
+    defaultValues: {
+      name: "",
+      description: "",
+    },
   });
 
-  function onSubmit(data: z.infer<typeof createRoomSchema>) {
-    console.log("Creating room with data:", data);
-    // Here you would typically call an API to create the room
+  async function onSubmit(data: z.infer<typeof createRoomSchema>) {
+    await createRoom({ name: data.name, description: data.description || "" });
+    createRoomForm.reset();
   }
 
   return (
