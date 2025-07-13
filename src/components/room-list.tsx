@@ -20,7 +20,7 @@ export function RoomList() {
       {isLoading && <p>Loading...</p>}
       {error && <p>Error loading rooms: {error.message}</p>}
 
-      <div className="">
+      <div className="w-full max-w-4xl">
         {data?.map((room: Room) => (
           <Card className="mb-4 flex flex-col" key={room.id}>
             <CardHeader>
